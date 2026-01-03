@@ -31,3 +31,6 @@ A simple gdps framework, currently only having support for limited features seen
 
 # Special thanks/Credits
 - Cvolton - the incl/lib/connection.php script (I just yoinked it straight from gmdprivateserver lol)
+
+## license
+gpl-3.0
