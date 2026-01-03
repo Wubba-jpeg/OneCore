@@ -23,6 +23,7 @@ A simple gdps framework, currently only having support for limited features seen
 ## installing
 - upload all files to your webserver
 - edit config/connection.php
+- upload database.sql to your db
 - edit the links in your 1.0 apk
 - edit the package name
 - done!
