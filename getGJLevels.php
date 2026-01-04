@@ -10,18 +10,61 @@ exit("-1");
 $page = $_POST["page"] ?? 0;
 $str = $_POST["str"] ?? "";
 $type = $_POST["type"] ?? 0;
+$wheretype = ""; 
+$order = "";
 
-// search type
+
+
 switch ($type) {
+case 0:
+// search type (this is a mess)
+if (empty($str)) {
+// if there is nothing then order by recent
+
+$order = "ORDER BY levelID DESC";
+$wheretype = ""; 
+// if not, then see if it is an id
+
+} else if (is_numeric($str)) {
+$wheretype = "WHERE levelID = $str";
+$order = "";
+// if not, then see if it is a level name
+} else {
+$wheretype = "WHERE LOWER(levelName) LIKE LOWER('%$str%')";
+$order = ""; 
+}
+break;
+
+case 1:
+// downloaded
+$order = "ORDER BY downloads DESC";
+break;
+
+case 2:
+// liked
+$order = "ORDER BY likes DESC";
+break;
+
+case 3:
+// trending (most downloaded this week, idk geometry dashes formula)
+$wheretype = "WHERE uploadDate >= DATE_SUB(NOW(), INTERVAL 7 DAY)";
+$order = "ORDER BY downloads DESC";
+break;
 
 case 4:
 // recent
 $order = "ORDER BY levelID DESC";
 break;
+
+case 6:
+// featured
+$wheretype = "WHERE featured != 0";
+$order = "ORDER BY levelID DESC";
+break;
 }
 // get levels
 $offset = $page * 10;
-$query = $db->prepare("SELECT * FROM levels $order LIMIT 10 OFFSET $offset");
+$query = $db->prepare("SELECT * FROM levels $wheretype $order LIMIT 10 OFFSET $offset");
 $query->execute();
 $levels = $query->fetchAll();
 
@@ -29,7 +72,7 @@ $levels = $query->fetchAll();
 
 $levelamount = 1;
 $levelObject = "";
-$creatorObject= "";
+$creatorObject = "";
 
 foreach ($levels as $level) {
 $levelObject .= "1:{$level['levelID']}:2:{$level['levelName']}:3:{$level['description']}:5:{$level['levelVersion']}:6:{$level['userID']}:8:10:9:{$level['difficulty']}:10:{$level['downloads']}:11:0:12:{$level['officialSong']}:13:{$level['gameVersion']}:14:{$level['likes']}:15:{$level['length']}|";
