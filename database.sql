@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 03, 2026 at 06:30 PM
+-- Generation Time: Jan 04, 2026 at 09:16 AM
 -- Server version: 10.11.14-MariaDB-0+deb12u2
 -- PHP Version: 7.4.33
 
@@ -24,6 +24,19 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `actions`
+--
+
+CREATE TABLE `actions` (
+  `actionID` int(11) NOT NULL,
+  `actionType` int(11) NOT NULL,
+  `ip` text NOT NULL,
+  `levelID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `levels`
 --
 
@@ -35,6 +48,75 @@ CREATE TABLE `levels` (
   `userID` int(11) DEFAULT NULL,
   `userName` varchar(255) DEFAULT NULL,
   `difficulty` int(11) DEFAULT 0,
+  `downloads` int(11) DEFAULT 0,
+  `officialSong` int(11) DEFAULT 0,
+  `gameVersion` int(11) DEFAULT 1,
+  `likes` int(11) DEFAULT 0,
+  `length` int(11) DEFAULT 0,
+  `uploadDate` timestamp NULL DEFAULT current_timestamp(),
+  `featured` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `userId` int(11) NOT NULL,
+  `userName` text NOT NULL,
+  `udid` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `actions`
+--
+ALTER TABLE `actions`
+  ADD PRIMARY KEY (`actionID`);
+
+--
+-- Indexes for table `levels`
+--
+ALTER TABLE `levels`
+  ADD PRIMARY KEY (`levelID`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`userId`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `actions`
+--
+ALTER TABLE `actions`
+  MODIFY `actionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `levels`
+--
+ALTER TABLE `levels`
+  MODIFY `levelID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
   `downloads` int(11) DEFAULT 0,
   `officialSong` int(11) DEFAULT 0,
   `gameVersion` int(11) DEFAULT 1,
