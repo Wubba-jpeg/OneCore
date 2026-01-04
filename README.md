@@ -8,12 +8,10 @@ A simple gdps framework, currently only having support for limited features seen
 - Uploading levels
 - getting levels
 - downloading levels
+- liking levels
   
 ## Unsupported (planned) features
-- all tabs other than recent tab
 - difficulty filters
-- liking
-- leaderboards
 
 # Setup
 ## requirements
