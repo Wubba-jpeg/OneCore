@@ -21,12 +21,10 @@ A simple gdps framework, currently only having support for gd 1.0 - 1.5
 - PHP
 
 ## installing
-- upload all files to your webserver
-- edit config/connection.php
-- upload database.sql to your db
-- edit the links in your 1.0 apk
-- edit the package name
-- done!
+1. upload all files to your webserver
+2.  edit config/connection.php
+3.  upload database.sql to your db
+4.  edit the links in your gd apk
 
 
 # Special thanks/Credits
