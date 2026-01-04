@@ -1,20 +1,26 @@
 <?php
 include "incl/lib/connection.php";
+require_once "incl/lib/injectionlibpatch.php";
 
-// check if secret exists (basically finding if they are accessing from gd or url)
+// check if secret exists
 if (!isset($_POST["secret"])) {
 exit("-1");
 }
 
-// level id
-$levelID = $_POST["levelID"];
+$levelID = injectpatch::number($_POST["levelID"]);
+$inc = injectpatch::number($_POST["inc"]);
 
-// select all the stuff related to that level ig
-$query = $db->prepare("SELECT * FROM levels WHERE levelID = $levelID");
-$query->execute();
+// add 1 to downloads
+if ($inc == 1) {
+$updateQuery = $db->prepare("UPDATE levels SET downloads = downloads + 1 WHERE levelID = :levelID");
+$updateQuery->execute([':levelID' => $levelID]);
+}
+
+// get level data
+$query = $db->prepare("SELECT * FROM levels WHERE levelID = :levelID");
+$query->execute([':levelID' => $levelID]);
 $levels = $query->fetchAll();
 
-// get the level data
 $levelfile = "levelData/$levelID";
 $leveldat = file_get_contents($levelfile);
 

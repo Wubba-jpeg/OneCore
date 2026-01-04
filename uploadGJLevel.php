@@ -1,27 +1,35 @@
 <?php
 include "incl/lib/connection.php";
 include "incl/lib/mainLib.php";
+require_once "incl/lib/injectionlibpatch.php";
 $gs = new mainLib();
 // check if you're actually from gd
 if (!isset($_POST["secret"])) {
     exit("-1");
 }
 // get level info
-$levelName = $_POST["levelName"];
+$levelName = injectpatch::clean($_POST["levelName"]);
 $levelData = $_POST["levelString"];
-$levelDesc = $_POST["levelDesc"];
-$udid = $_POST["udid"];
-$userName = $_POST["userName"];
-$length = $_POST["levelLength"];
-$song = $_POST["audioTrack"];
+$levelDesc = injectpatch::clean($_POST["levelDesc"]);
+$udid = injectpatch::clean($_POST["udid"]);
+$userName = injectpatch::clean($_POST["userName"]);
+$length = injectpatch::number($_POST["levelLength"]);
+$song = injectpatch::number($_POST["audioTrack"]);
 
 
 $uid = $gs->userID($udid, $userName);
 
 // insert the level metadata into the database
 
-$query = $db->prepare("INSERT INTO levels (levelName, description, userID, userName, length, officialSong, gameVersion, levelVersion, difficulty, downloads, likes, uploadDate, featured) VALUES ('$levelName', '$levelDesc', $uid, '$userName', '$length', '$song', 1, 1, 0, 0, 0, NOW(), 0)");
-$query->execute();
+$query = $db->prepare("INSERT INTO levels (levelName, description, userID, userName, length, officialSong, gameVersion, levelVersion, difficulty, downloads, likes, uploadDate, featured) VALUES (:levelName, :desc, :uid, :userName, :length, :song, 1, 1, 0, 0, 0, NOW(), 0)");
+$query->execute([
+':levelName' => $levelName,
+':desc' => $levelDesc,
+':uid' => $uid,
+':userName' => $userName,
+':length' => $length,
+':song' => $song
+]);
 
 // get the auto generated level id
 

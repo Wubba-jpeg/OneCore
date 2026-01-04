@@ -1,5 +1,6 @@
 <?php
 include "incl/lib/connection.php";
+require_once "incl/lib/injectionlibpatch.php";
 
 // check if secret exists (basically finding if they are accessing from gd or url)
 if (!isset($_POST["secret"])) {
@@ -7,11 +8,12 @@ exit("-1");
 }
 
 // post params
-$page = $_POST["page"] ?? 0;
-$str = $_POST["str"] ?? "";
-$type = $_POST["type"] ?? 0;
+$page = injectpatch::number($_POST["page"] ?? 0);
+$str = injectpatch::clean($_POST["str"] ?? "");
+$type = injectpatch::number($_POST["type"] ?? 0);
 $wheretype = ""; 
 $order = "";
+$params = [];
 
 
 
@@ -26,11 +28,13 @@ $wheretype = "";
 // if not, then see if it is an id
 
 } else if (is_numeric($str)) {
-$wheretype = "WHERE levelID = $str";
+$wheretype = "WHERE levelID = :str";
+$params[':str'] = $str;
 $order = "";
 // if not, then see if it is a level name
 } else {
-$wheretype = "WHERE LOWER(levelName) LIKE LOWER('%$str%')";
+$wheretype = "WHERE LOWER(levelName) LIKE LOWER(:str)";
+$params[':str'] = "%$str%";
 $order = ""; 
 }
 break;
@@ -65,7 +69,7 @@ break;
 // get levels
 $offset = $page * 10;
 $query = $db->prepare("SELECT * FROM levels $wheretype $order LIMIT 10 OFFSET $offset");
-$query->execute();
+$query->execute($params);
 $levels = $query->fetchAll();
 
 // build response
