@@ -33,5 +33,4 @@ $lvlfile = "levelData/$levelID";
 file_put_contents($lvlfile, $levelData);
 
 echo $levelID;
-?>echo $levelID;
 ?>
