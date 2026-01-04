@@ -5,7 +5,7 @@ include dirname(__FILE__)."/../../config/connection.php";
 if(!isset($port))
 	$port = 3306;
 try {
-    $db = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password, array(
+    $db = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $dbuser, $password, array(
     PDO::ATTR_PERSISTENT => true
 ));
     // set the PDO error mode to exception
