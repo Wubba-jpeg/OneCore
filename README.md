@@ -1,14 +1,16 @@
 # OneCore
-A simple gdps framework, currently only having support for limited features seen in 1.0
+A simple gdps framework, currently only having support for gd 1.0 - 1.5
 
 ## supported features
->[!WARNING]
->This core is HIGHLY insecure. Please
->don't seriously use this.
+>[!NOTE]
+>This core is still being worked on,
+>so some features may be buggy
 - Uploading levels
 - getting levels
 - downloading levels
 - liking levels
+- leaderboards (other than creator lb)
+- commenting
   
 ## Unsupported (planned) features
 - difficulty filters
@@ -28,7 +30,7 @@ A simple gdps framework, currently only having support for limited features seen
 
 
 # Special thanks/Credits
-- Cvolton - the incl/lib/connection.php script (I just yoinked it straight from gmdprivateserver lol)
+- Cvolton - the incl/lib/connection.php script (I just yoinked it straight from gmdprivateserver lol), and commenting is heavily referenced from their version of gmdprivateserver.
 - Caster - testing the core
 
 ## license
