@@ -15,7 +15,13 @@ $wheretype = "";
 $order = "";
 $params = [];
 
-
+// star filters
+if (!empty($_POST["star"])) {
+$wheretype = "WHERE rated > 0";
+}
+if (!empty($_POST["noStar"])) {
+$wheretype = "WHERE rated = 0";
+}
 
 switch ($type) {
 case 0:
@@ -35,7 +41,7 @@ $order = "";
 } else {
 $wheretype = "WHERE LOWER(levelName) LIKE LOWER(:str)";
 $params[':str'] = "%$str%";
-$order = ""; 
+$order = "ORDER BY levelID DESC"; 
 }
 break;
 
@@ -65,7 +71,14 @@ case 6:
 $wheretype = "WHERE featured != 0";
 $order = "ORDER BY levelID DESC";
 break;
+
+case 7:
+// magic
+$wheretype = "WHERE length > 3";
+break;
 }
+
+
 // get levels
 $offset = $page * 10;
 $query = $db->prepare("SELECT * FROM levels $wheretype $order LIMIT 10 OFFSET $offset");
