@@ -1,7 +1,7 @@
 # OneCore
 Simple GDPS Framework for GD 1.0-1.5!
 
-## compatibilty
+## Compatibilty
 Requires PHP 7.0+, tested up  to 8.4
 
 
