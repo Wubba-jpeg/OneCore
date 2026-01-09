@@ -1,33 +1,61 @@
 <?php
 include "../incl/lib/connection.php";
+include "../config/pass.php";
 require_once "../incl/lib/injectionlibpatch.php";
-
-// !! IMPORTANT !! CHANGE FOR FUCKS SAKE    
-$RATE_PASSWORD = "placeholderpassplzchange";
 
 // submits the form stuff
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $password = $_POST["password"] ?? "";
-    $levelID  = (int)($_POST["levelID"] ?? 0);
-    $rated    = (int)($_POST["stars"] ?? 0);
-    $featured = (int)($_POST["featured"] ?? 0);
+    $levelID  = injectpatch::number($_POST["levelID"] ?? 0);
+    $rated    = injectpatch::number($_POST["stars"] ?? 0);
+    $featured = injectpatch::number($_POST["featured"] ?? 0);
+
+    // convert to integers, extra safety ig
+    $levelID = (int)$levelID;
+    $rated = (int)$rated;
+    $featured = (int)$featured;
+
+if ($rated == 10) {
+    $demon = 1;
+} else {
+    $demon = 0;
+}
+
+// set difficulty based on stars
+if ($rated == 2) {
+    $difficulty = 10;
+} elseif ($rated == 3) {
+    $difficulty = 20;
+} elseif ($rated == 4) {
+    $difficulty = 30;
+} elseif ($rated == 5) {
+    $difficulty = 40;
+} elseif ($rated >= 6 && $rated <= 10) {
+    $difficulty = 50;
+} else {
+    $difficulty = 0;
+}
 
     if ($password !== $RATE_PASSWORD) {
         $message = "wrong password!";
-    } elseif ($levelID <= 0 || $rated <= 0) {
+    } elseif ($levelID <= 0 || $rated <= 0 || $rated > 10) {
         $message = "invalid input!!!!!!";
     } else {
         $stmt = $db->prepare("
             UPDATE levels
             SET rated = :rated,
-                featured = :featured
+                featured = :featured,
+                demon = :demon,
+                difficulty = :difficulty
             WHERE levelID = :levelID
         ");
 
         $stmt->execute([
             ":rated"    => $rated,
             ":featured" => $featured,
+            ":demon"    => $demon,
+            ":difficulty" => $difficulty,
             ":levelID"  => $levelID
         ]);
 
