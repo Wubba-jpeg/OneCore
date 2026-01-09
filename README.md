@@ -1,8 +1,6 @@
 # OneCore
 Simple GDPS Framework for GD 1.0-1.5!
 
-## Compatibilty
-Requires PHP 7.0+, tested up  to 8.4
 
 
 ## Features  
@@ -22,7 +20,7 @@ Requires PHP 7.0+, tested up  to 8.4
 # Setup
 ## requirements
 - A MySQL or MariaDB database.
-- PHP
+- PHP (7.0+, tested up to 8.4)
 
 ## installing
 Step 1: Connect to your web server with a FTP client such as FileZilla, or if using XAMPP go to your htdocs.<br>
