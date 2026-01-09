@@ -5,18 +5,18 @@ require_once "../incl/lib/injectionlibpatch.php";
 // very secret secret SECRET dont tell anyone!!
 $secret = $_POST["secret"] ?? "Secretlysecretsecret";
 
-// I love intializing shit
+// initalizes shit i think i forgot lmfao
 $rank = 0;
 
 // i ripped this straight from megasa1nt core :sob:
 $iconsRendererServer = 'https://gdicon.oat.zone/icon.png';
 
-// No way we get the leaderboard!!!
+// actual getting what this page is for (leaderboard)
 $stmt = $db->prepare("SELECT userId, userName, stars, icon, color1, color2 FROM users WHERE stars > 0 ORDER BY stars DESC LIMIT 50");
 $stmt->execute();
 $users = $stmt->fetchAll();
 
-// me when Hypertext Markup Language
+// loads the hypertext markup language shit
 echo "<!DOCTYPE html>";
 echo "<html><head><title>Leaderboard</title></head><body>";
 echo "<h1>Leaderboard</h1>";
