@@ -29,6 +29,7 @@ Step 4: Edit the links in your Geometry Dash APK to use the URL of your website.
 # Special thanks/Credits
 - Cvolton - the incl/lib/connection.php script (I just yoinked it straight from gmdprivateserver lol), and commenting is heavily referenced from their version of gmdprivateserver.
 - Caster - testing the core
+- Ozonous - creating the leaderboard in the dashboard directory
 
 ## license
 GPL-3.0
