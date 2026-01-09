@@ -1,9 +1,10 @@
 <?php
 include "../incl/lib/connection.php";
 require_once "../incl/lib/injectionlibpatch.php";
+// you don't need a secret here ozonous!!!
 
 // very secret secret SECRET dont tell anyone!!
-$secret = $_POST["secret"] ?? "Secretlysecretsecret";
+// $secret = $_POST["secret"] ?? "Secretlysecretsecret";
 
 // initalizes shit i think i forgot lmfao
 $rank = 0;
