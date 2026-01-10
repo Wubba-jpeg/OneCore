@@ -29,6 +29,7 @@ Step 1: Connect to your web server with a FTP client such as FileZilla, or if us
 Step 2: Upload all the files from the GitHub repo to the htdocs folder or the folder where the website is (such as www on AlwaysData)<br>
 Step 3: Upload the Database.sql file to your Database.<br>
 Step 4: Edit the links in your Geometry Dash APK to use the URL of your website. (must be 33 characters)<br>
+Step 5: Edit all files in config/
 
 # Special thanks/Credits
 - Cvolton - the incl/lib/connection.php script (I just yoinked it straight from gmdprivateserver lol), and commenting is heavily referenced from their version of gmdprivateserver.
