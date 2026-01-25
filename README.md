@@ -1,5 +1,6 @@
 # OneCore
 Simple GDPS Framework for GD 1.0-1.5!
+(limited 1.9 features)
 
 
 
