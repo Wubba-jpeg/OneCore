@@ -63,5 +63,33 @@ return "Unknown";
 }
 }
 }
+public function getSong($id) {
+switch($id){
+case 0:
+return "Stereo Madness";
+case 1:
+return "Back On Track";
+case 2:
+return "Polargeist";
+case 3:
+return "Dry Out";
+case 4:
+return "Base After Base";
+case 5:
+return "Can't Let Go";
+case 6:
+return "Jumper";
+case 7:
+return "Time Machine";
+case 8:
+return "Cycles";
+case 9:
+return "xStep";
+case 10:
+return "Clutterfunk";
+case 11:
+return "Theory Of Everything";
+}
+}
 }
 ?>
