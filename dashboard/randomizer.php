@@ -1,4 +1,6 @@
 <?php
+// this Is very old!
+// don't mind the shit code
 include "../incl/lib/connection.php";
 include "../incl/lib/mainLib.php";
 $gs = new mainLib();
