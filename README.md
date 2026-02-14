@@ -38,6 +38,6 @@ Step 5: Edit all files in config/
 - Caster - testing the core
 - Ozonous - creating the leaderboard in the dashboard directory
 - Renzbobz - Discord Webhook function - https://github.com/renzbobz/DiscordWebhook-PHP
-
+- oeatmeline - Icons rendering api - https://github.com/oatmealine/gd-icon-renderer-web
 ## license
 ## GPL-3.0
