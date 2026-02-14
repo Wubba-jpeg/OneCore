@@ -9,7 +9,6 @@ require_once "../incl/lib/injectionlibpatch.php";
 // initalizes shit i think i forgot lmfao
 $rank = 0;
 
-// i ripped this straight from megasa1nt core :sob:
 $iconsRendererServer = 'https://gdicon.oat.zone/icon.png';
 
 // actual getting what this page is for (leaderboard)
