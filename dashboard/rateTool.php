@@ -6,6 +6,7 @@ include "../incl/lib/mainLib.php";
 include "../config/misc.php";
 require_once "../incl/lib/injectionlibpatch.php";
 require "../incl/lib/DiscordWebhook.php";
+// TODO: optimize image logic
 
 $gs = new mainLib();
 $dw = new DiscordWebhook($webhook);
