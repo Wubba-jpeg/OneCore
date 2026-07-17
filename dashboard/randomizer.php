@@ -1,72 +1,57 @@
 <?php
-// this Is very old!
-// don't mind the shit code
+// I finally optimized this after months!!
 include "../incl/lib/connection.php";
 include "../incl/lib/mainLib.php";
 $gs = new mainLib();
 
+// filtering
+$ratedOnly = isset($_GET['rated']) && $_GET['rated'] == 'on';
+
 echo "<h1>Level Randomizer</h1>";
 echo "<hr>";
-// get max level id
 
-$query = $db->prepare(
-    "SELECT levelID FROM levels ORDER BY levelID DESC LIMIT 1"
-);
-$query->execute();
-$result = $query->fetch();
-$maxlevelid = $result["levelID"];
+// get levels
+if ($ratedOnly) {
+    $query = $db->query("SELECT * FROM levels WHERE rated > 0");
+} else {
+    $query = $db->query("SELECT * FROM levels");
+}
+$levels = $query->fetchAll();
 
-# get level id
-
-$level = rand(4, $maxlevelid);
-
-// get level name
-
-$query = $db->prepare("SELECT levelName FROM levels WHERE levelID=$level");
-$query->execute();
-$result2 = $query->fetch();
-$levelName = $result2["levelName"];
-
-// reroll if the level doesnt exist
-
-while ($levelName === null) {
-    $level = rand(4, $maxlevelid);
-    $query = $db->prepare("SELECT levelName FROM levels WHERE levelID=$level");
-    $query->execute();
-    $result2 = $query->fetch();
-    $levelName = $result2["levelName"];
+// if no levels exist (why would yuon even be here if there were none??)
+if (empty($levels)) {
+    echo "<h2>No levels found!</h2>";
+    exit;
 }
 
-// get creator
+// pick a random one
+$level = $levels[array_rand($levels)];
 
-$query = $db->prepare("SELECT userName from levels WHERE levelID=$level");
-$query->execute();
-$result3 = $query->fetch();
-$creator = $result3["userName"];
+// grab the data
+$levelName = $level["levelName"];
+$creator = $level["userName"] ?? "Unknown";
+$stars = $level["rated"] ?? 0;
+$levelID = $level["levelID"];
+$diff = $gs->getDiff($level["difficulty"], $level["auto"], $level["demon"]);
 
-// get stars
-
-$query = $db->prepare("SELECT rated from levels WHERE levelID=$level");
-$query->execute();
-$result4 = $query->fetch();
-$stars = $result4["rated"];
-
-// get difficulty
-
-$query = $db->prepare(
-    "SELECT difficulty, auto, demon from levels WHERE levelID=$level"
-);
-$query->execute();
-$result5 = $query->fetch();
-$diffnum = $result5["difficulty"];
-$auto = $result5["auto"];
-$demon = $result5["demon"];
-$diff = $gs->getDiff($diffnum, $auto, $demon);
-
-// echo results
-
+// show results
 echo "<h2>$levelName by $creator</h2>";
-echo "<h3>$stars stars</h3>";
-echo "difficulty: $diff";
-echo "<h3>id: $level</h3>";
+if ($stars > 0) {
+    echo "<h3>$stars stars</h3>";
+} else {
+    echo "<h3>unrated</h3>";
+}
+if ($diff !== "N/A") {
+    echo "difficulty: $diff";
+}
+echo "<h3>id: $levelID</h3>";
+
+// checkbox
+echo "<hr>";
+echo "<form method='get'>";
+echo "<label>";
+echo "<input type='checkbox' name='rated' " . ($ratedOnly ? "checked" : "") . " onchange='this.form.submit()'>";
+echo " rated only";
+echo "</label>";
+echo "</form>";
 ?>
